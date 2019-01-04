@@ -34,5 +34,5 @@ DW_WT_ZT AS (
 --行转列统计,统计结果列表
 SELECT TB_DWBH officeId,SUMCOUNT sumCount,FINISH finish,DOING doing,RANK() OVER(PARTITION BY TB_DWBH ORDER BY SUMCOUNT ASC) officeOrder
 FROM (SELECT * FROM DW_WT_ZT PIVOT (COUNT(1) FOR STATUS IN ('2' FINISH,'1' DOING))) DWZ
-;
+
 -------------------------------------------------------------------------------------------------------------------------------------

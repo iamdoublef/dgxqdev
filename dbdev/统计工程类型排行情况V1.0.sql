@@ -44,5 +44,5 @@ DW_WT_ZT AS (
 --行转列统计,统计结果列表
 SELECT ENGINE_TABLE_NAME engineType,SUMCOUNT sumCount,FINISH finish,DOING doing,RANK() OVER(PARTITION BY ENGINE_TABLE_NAME ORDER BY SUMCOUNT ASC) engineOrder
 FROM (SELECT * FROM DW_WT_ZT PIVOT (COUNT(1) FOR STATUS IN ('2' FINISH,'1' DOING))) DWZ
-;
+
 -------------------------------------------------------------------------------------------------------------------------------------

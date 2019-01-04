@@ -23,7 +23,7 @@ FROM
 			)
 		)
 )
---select * from CURR_DW
+--select * from DW_WT_STR
 ,
 --单位对应的问题列表
 DW_WT_LB AS(
@@ -31,7 +31,7 @@ DW_WT_LB AS(
 		FROM DW_WT_STR a, ( SELECT LEVEL lvl FROM dual CONNECT BY LEVEL < 1000 ) b
 		WHERE b.lvl <= REGEXP_COUNT (a.TZ_BH, '\,') + 1
 )
---select * from WT_LIST
+--select * from DW_WT_LB
 ,
 --单位问题状态
 DW_WT_ZT AS (
@@ -43,5 +43,4 @@ DW_WT_ZT AS (
 --行转列统计,统计结果列表
 SELECT TB_DWBH officeId,SUMCOUNT sumCount,FINISH finish,DOING doing,RANK() OVER(PARTITION BY TB_DWBH ORDER BY SUMCOUNT ASC) officeOrder
 FROM (SELECT * FROM DW_WT_ZT PIVOT (COUNT(1) FOR STATUS IN ('2' FINISH,'1' DOING))) DWZ
-;
--------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
