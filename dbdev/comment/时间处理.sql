@@ -3,8 +3,8 @@ Select to_number(to_char(sysdate,'yyyy')) from dual
 select extract (year from sysdate) from dual
 
 --取月份
-Select to_number(to_char(sysdate,'mm')) from dual
-select extract (month from sysdate) from dual
+Select to_number(to_char(sysdate,'mm')) from dual;
+select extract (month from sysdate) from dual;
 
 --取日期
 Select to_number(to_char(sysdate,'dd')) from dual

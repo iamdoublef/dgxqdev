@@ -1,0 +1,1 @@
+^\s*<simple-value><!\[CDATA\[[\.]*\n+[\.]*\]\]></simple-value>$

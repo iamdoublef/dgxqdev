@@ -1,0 +1,6 @@
+@startuml
+Html -> JTSendInfoController : pullHZong(String[] JSDWBHS, String[] HzongIds) request
+JTSendInfoController -> JTSendInfoService : addSendInfoBatch(List<sendInfo> sendInfos) request
+JTSendInfoService -> JTSendInfoController : addSendInfoBatch(List<sendInfo> sendInfos) response String[] sendIds
+Html <- JTSendInfoController : pullHZong(String[] JSDWBHS, String[] HzongIds) response String[] sendIds
+@enduml
