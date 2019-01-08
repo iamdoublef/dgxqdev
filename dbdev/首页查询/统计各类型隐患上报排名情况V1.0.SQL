@@ -67,3 +67,27 @@ select * from (SELECT stdb.TABLE_NAME ,STATUS, COUNT(1) OVER(PARTITION BY TABLE_
 
 ---------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------
+--测试内容
+---------------------------------------------------------------------------------------------------------------------------
+select 'SHDZZHYHD' yhType,'山洪地质灾害隐患点' yhTypeName, 1 yhOrder  from dual
+union all select 'XPJF' yhType,'削坡建房认定可能引发灾害点' yhTypeName, 2 yhOrder  from dual
+union all select 'LHDWQY' yhType,'沿河、临海低洼区域' yhTypeName, 3 yhOrder  from dual
+union all select 'NLHD' yhType,'内涝黑点' yhTypeName, 4 yhOrder  from dual
+union all select 'WF' yhType,'危房' yhTypeName, 5 yhOrder  from dual
+union all select 'TPW' yhType,'灾害易发区铁皮屋' yhTypeName, 6 yhOrder  from dual
+union all select 'NZF' yhType,'灾害易发区有人居住泥砖房' yhTypeName, 7 yhOrder  from dual
+union all select 'JZGD' yhType,'灾害易发区建筑工地' yhTypeName, 8 yhOrder  from dual
+union all select 'AJJQ' yhType,'灾害易发区A级景区' yhTypeName, 9 yhOrder  from dual
+union all select 'DZGY' yhType,'灾害易发区地质公园' yhTypeName, 10 yhOrder  from dual
+union all select 'ZRBHQ' yhType,'灾害易发区自然保护区' yhTypeName, 11 yhOrder  from dual
+union all select 'SYHGQY' yhType,'灾害易发区石油化工企业' yhTypeName, 12 yhOrder  from dual
+union all select 'RQGCQY' yhType,'灾害易发区燃气罐储企业' yhTypeName, 13 yhOrder  from dual
+union all select 'LC' yhType,'灾害易发区林场' yhTypeName, 14 yhOrder  from dual
+union all select 'NC' yhType,'灾害易发区农场' yhTypeName, 15 yhOrder  from dual
+union all select 'BHYC' yhType,'滨海浴场' yhTypeName, 16 yhOrder  from dual
+union all select 'YPYZC' yhType,'灾害易发区渔排养殖场' yhTypeName, 17 yhOrder  from dual
+union all select 'YC' yhType,'渔船' yhTypeName, 18 yhOrder  from dual
+union all select 'SWCB' yhType,'“三无”船舶、涉渔“三无”船舶' yhTypeName, 19 yhOrder  from dual
+union all select 'YG' yhType,'渔港' yhTypeName, 20 yhOrder  from dual
+union all select 'BHCS' yhType,'避护场所' yhTypeName, 21 yhOrder  from dual
+union all select 'FZJZWZSBCK' yhType,'防灾救灾物资设备仓库' yhTypeName, 22 yhOrder  from dual

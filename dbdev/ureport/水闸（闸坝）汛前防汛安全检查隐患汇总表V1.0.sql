@@ -3,9 +3,9 @@
 --------------------------------------------------------------------------------------------------------------------------------------
 --序号	水闸名称，所在地（县、镇），所在堤防（或河段），闸孔孔数，闸孔孔数总净高（米），设计过闸流量（m3/s）	受益面积(万亩)	行政责任人	技术责任人	
 --溢洪道启闭系统是否配备备用电源	工程存在主要问题	应急除险处理措施
---缺字段：受益面积(万亩)；所在堤防（或河段）；所在县和镇公用字段，没有分开
+--缺字段：受益面积(万亩)；所在县和镇公用字段，没有分开,缺失字段是否配备备用电源
 
-select gcgldw_mc, gcgldw_bh, gcdz, '缺失字段所在堤防' szdf  , ks_sl, zkzjk, sjgzll,  '缺失字段受益面积' symj , fxxzzrr_xm ,fxjsfzr_xm , '缺失字段是否配备备用电源' sfpbbydy, 
+select gcgldw_mc, gcgldw_bh, gcdz, bsz.df_mc || bsz.hd_mc  szdf  , ks_sl, zkzjk, sjgzll,  '缺失字段受益面积' symj , fxxzzrr_xm ,fxjsfzr_xm , '缺失字段是否配备备用电源' sfpbbydy, 
        czzywt1 || decode(czzywt2,null,'', '; ' || czzywt2 ) || decode(czzywt3 ,null,'', '; ' || czzywt3 ) || decode(czzywt4  ,null,'', '; ' ||  czzywt4 ) 
        || decode( czzywt5 ,null,'', '; ' ||  czzywt5 ) || decode(czzywt6  ,null,'', '; ' || czzywt6  ) || decode(czzywt7  ,null,'', '; ' || czzywt7  )
         || decode(czzywt8  ,null,'', '; ' ||czzywt8   )  czzywt,
@@ -16,14 +16,15 @@ select gcgldw_mc, gcgldw_bh, gcdz, '缺失字段所在堤防' szdf  , ks_sl, zkzjk, sjgz
 	 from (SELECT  REGEXP_SUBSTR(TZ_BH, '[^,]+', 1, lvl) WT_BH ,tb_dwbh, tb_dwmc, cl_ren , tb_sj 
           FROM (
           --把id,id,id,id的字符串转换成id列
-               select tb_dwbh, tb_dwmc, cl_ren , tb_sj , tz_bh, 
+               select tb_dwbh, tb_dwmc, cl_ren , tb_sj , tz_bh
                   from t_account_info
                  where tb_dwbh = 'DGXQSLGCGLC7' 
                    and extract(year from tb_sj) = '2018'
                    and gc_yh_lx ='SZ' ) a,
                (SELECT LEVEL lvl FROM dual CONNECT BY LEVEL < 1000) b
          WHERE b.lvl <= REGEXP_COUNT(a.TZ_BH, '\,') + 1) tai
-  LEFT JOIN T_STANDBOOK_SZHA szha on tai.wt_bh = szha.id;
+  LEFT JOIN T_STANDBOOK_SZHA szha on tai.wt_bh = szha.id
+  LEFT JOIN T_BASE_SZHA bsz on szha.SZHA_BH = bsz.id;
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 --测试数据

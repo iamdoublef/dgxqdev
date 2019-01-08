@@ -1,37 +1,37 @@
 
 
 ---------------------------------------------------------------------------------------------------------------------------
-------------------------ç»Ÿè®¡æœ¬å•ä½çš„éšæ‚£ä¸ŠæŠ¥æŽ’åæƒ…å†µ---------------------------------------------------------------------------
---é€šè¿‡T_ACCOUT_INFO å…³è” T_SEND_INFO èŽ·å–å½“å‰æ‰¹æ¬¡å·²ç»æŽ¥æ”¶æˆåŠŸçš„ä¸‹çº§æ‰€æœ‰å•ä½ ï¼Œé€šè¿‡è‡ªå…³è”å¯ä»¥æŸ¥è¯¢åˆ°å½“å‰æ‰€æœ‰çš„æŠ¥é€è·¯å¾„
---å­˜åœ¨ä¸¤ç§æƒ…å†µï¼š1ã€æ— T_SEND_INFO,è¯¥æƒ…å†µæ˜¯å› ä¸ºå½“å‰å•ä½ä¸ºå¶å­å•ä½ï¼Œæœªæäº¤ä»»ä½•å°è´¦ï¼Œä½†æ­¤æ—¶å°è´¦å·²ç»ç”Ÿæˆï¼Œæ‰€
---              2ã€æœ‰T_SEND_INFOï¼Œè¯¥æƒ…å†µä¸ºå·²ç»æŠ¥é€è¿‡ï¼Œæœ‰æŠ¥é€çš„è®°å½•
---å½“å‰æ‰¹æ¬¡æ‰€æœ‰çš„æŠ¥é€ä¿¡æ¯
+------------------------Í³¼Æ±¾µ¥Î»µÄÒþ»¼ÉÏ±¨ÅÅÃûÇé¿ö---------------------------------------------------------------------------
+--Í¨¹ýT_ACCOUT_INFO ¹ØÁª T_SEND_INFO »ñÈ¡µ±Ç°Åú´ÎÒÑ¾­½ÓÊÕ³É¹¦µÄÏÂ¼¶ËùÓÐµ¥Î» £¬Í¨¹ý×Ô¹ØÁª¿ÉÒÔ²éÑ¯µ½µ±Ç°ËùÓÐµÄ±¨ËÍÂ·¾¶
+--´æÔÚÁ½ÖÖÇé¿ö£º1¡¢ÎÞT_SEND_INFO,¸ÃÇé¿öÊÇÒòÎªµ±Ç°µ¥Î»ÎªÒ¶×Óµ¥Î»£¬Î´Ìá½»ÈÎºÎÌ¨ÕË£¬µ«´ËÊ±Ì¨ÕËÒÑ¾­Éú³É£¬Ëù
+--              2¡¢ÓÐT_SEND_INFO£¬¸ÃÇé¿öÎªÒÑ¾­±¨ËÍ¹ý£¬ÓÐ±¨ËÍµÄ¼ÇÂ¼
+--µ±Ç°Åú´ÎËùÓÐµÄ±¨ËÍÐÅÏ¢
 WITH PC_SEND_INFO AS(
   SELECT ACC.ID ACC_ID, SED.BS_DW_BH,SED.JS_DW_BH, ACC.TZ_TABLE_NAME FROM T_ACCOUNT_INFO ACC 
     LEFT JOIN T_SEND_INFO SED ON ACC.ID = SED.TZ_BH
-    WHERE ACC.GC_YH_LX='YH'--TODOéšæ‚£ç±»åž‹æ ‡è¯†
+    WHERE ACC.GC_YH_LX='YH'--TODOÒþ»¼ÀàÐÍ±êÊ¶
         AND ACC.PC_BH = (SELECT ID FROM T_FREQ_INFO WHERE STATUS ='2' )
-         AND SED.STATUS = 'JS' --æ‰€æœ‰æŽ¥æ”¶æˆåŠŸçš„ä¿¡æ¯
+         AND SED.STATUS = 'JS' --ËùÓÐ½ÓÊÕ³É¹¦µÄÐÅÏ¢
 )
 --select * from PC_SEND_INFO 
 ,
---æ‰¹æ¬¡æŠ¥é€è·¯å¾„,èŽ·å–å½“å‰ç”¨æˆ·æ‰€æœ‰å·²ç»æŽ¥æ”¶çš„ä¸‹çº§å•ä½ï¼Œä»¥åŠè¯¥çº§åˆ«å•ä½çš„æ‰€æœ‰æŠ¥é€ä¸Šæ¥çš„è·¯å¾„èŠ‚ç‚¹
+--Åú´Î±¨ËÍÂ·¾¶,»ñÈ¡µ±Ç°ÓÃ»§ËùÓÐÒÑ¾­½ÓÊÕµÄÏÂ¼¶µ¥Î»£¬ÒÔ¼°¸Ã¼¶±ðµ¥Î»µÄËùÓÐ±¨ËÍÉÏÀ´µÄÂ·¾¶½Úµã
 ROOT_SEND_PATH as(
     select   BS_DW_BH, JS_DW_BH, connect_by_root(JS_DW_BH) ROOT_BH
       from PC_SEND_INFO psed 
       connect by prior psed.BS_DW_BH = psed.JS_DW_BH 
-      start with psed.JS_DW_BH IN (SELECT BS_DW_BH FROM PC_SEND_INFO where JS_DW_BH = ( SELECT OFFICE_ID FROM SYS_USER WHERE ID = '1')) --TODO æ›¿æ¢ä¸ºä¼ å…¥çš„ç”¨æˆ·IDå‚æ•°
+      start with psed.JS_DW_BH IN (SELECT BS_DW_BH FROM PC_SEND_INFO where JS_DW_BH = ( SELECT OFFICE_ID FROM SYS_USER WHERE ID = '1')) --TODO Ìæ»»Îª´«ÈëµÄÓÃ»§ID²ÎÊý
     union all
-    --ä¸€çº§æœºæž„å¦‚æžœæ²¡æœ‰ä¸ŠæŠ¥åˆ™å•ç‹¬å¤„ç†ï¼Œä¸€çº§å•ä½æ˜¯T_SEND_INFOæ—  JS_DW_BH æ•°æ®ä»¥åŠ åœ¨ACCOUNT_INFO ä¸­æœ‰æ•°æ®å•ä½
+    --Ò»¼¶»ú¹¹Èç¹ûÃ»ÓÐÉÏ±¨Ôòµ¥¶À´¦Àí£¬Ò»¼¶µ¥Î»ÊÇT_SEND_INFOÎÞ JS_DW_BH Êý¾ÝÒÔ¼° ÔÚACCOUNT_INFO ÖÐÓÐÊý¾Ýµ¥Î»
     SELECT OFFICE_ID BS_DW_BH , null JS_DW_BH, OFFICE_ID ROOT_BH  
            FROM SYS_USER t
            where t.id = '1'
            and t.office_id not in (SELECT DISTINCT JS_DW_BH FROM T_SEND_INFO WHERE STATUS ='JS' AND FREQ_ID = (SELECT ID FROM T_FREQ_INFO WHERE STATUS ='2' ))
            and t.office_id in (SELECT DISTINCT TB_DWBH FROM t_Account_Info WHERE PC_BH = (SELECT ID FROM T_FREQ_INFO WHERE STATUS ='2' ))
-            -- TODO æ›¿æ¢ä¸ºä¼ å…¥çš„ç”¨æˆ·IDå‚æ•°
+            -- TODO Ìæ»»Îª´«ÈëµÄÓÃ»§ID²ÎÊý
     ) 
 --select * from ROOT_SEND_PATH ;   
---ç»Ÿè®¡ä¿¡æ¯ï¼Œæ ¹æ®æœºæž„è·¯å¾„ï¼Œæ‰¾å‡ºå¯¹åº”éšæ‚£å°è´¦è¡¨ä¸­æ‰€æœ‰çš„éšæ‚£ç±»åž‹
+--Í³¼ÆÐÅÏ¢£¬¸ù¾Ý»ú¹¹Â·¾¶£¬ÕÒ³ö¶ÔÓ¦Òþ»¼Ì¨ÕË±íÖÐËùÓÐµÄÒþ»¼ÀàÐÍ
 ,DW_SUM AS (
 SELECT rsp.ROOT_BH, stdb.TABLE_NAME ,COUNT(1) OVER(PARTITION BY ROOT_BH, TABLE_NAME) SUMCOUNT  ,RANK() OVER(PARTITION BY ROOT_BH, TABLE_NAME) SUMCOUNT  
       -- FROM (
@@ -66,5 +66,32 @@ SELECT rsp.ROOT_BH, stdb.TABLE_NAME ,COUNT(1) OVER(PARTITION BY ROOT_BH, TABLE_N
  select * from DW_SUM;
 
 ---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------²âÊÔÊý¾Ý-------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------
+select '×Ü¹¤' officeName,'1150' officeId, 1 yhOrder,58 sumCount  from dual
+union all select '¸±×Ü¹¤' officeName,'1151' officeId, 2 yhOrder,56 sumCount  from dual
+union all select '¼¼ÊõÖÐÐÄ°ì¹«ÊÒ' officeName,'1152' officeId, 3 yhOrder,54 sumCount  from dual
+union all select '¼Æ»®¾­ÓªÊÒ' officeName,'1153' officeId, 4 yhOrder,52 sumCount  from dual
+union all select '²ÆÎñÊÒ' officeName,'1154' officeId, 5 yhOrder,50 sumCount  from dual
+union all select '¹æ»®ÑÐ¾¿ÊÒ' officeName,'1155' officeId, 6 yhOrder,48 sumCount  from dual
+union all select '¹¤³Ì¼¼ÊõÊÒ' officeName,'1156' officeId, 7 yhOrder,46 sumCount  from dual
+union all select '×ÛºÏÐÅÏ¢ÊÒ' officeName,'1157' officeId, 8 yhOrder,44 sumCount  from dual
+union all select '°ì¹«ÊÒ' officeName,'1158' officeId, 9 yhOrder,42 sumCount  from dual
+union all select '´ò×ÖÊÒ' officeName,'1159' officeId, 10 yhOrder,40 sumCount  from dual
+union all select '²ÆÎñÊÒ' officeName,'1160' officeId, 11 yhOrder,38 sumCount  from dual
+union all select '³µ¶Ó' officeName,'1601' officeId, 12 yhOrder,36 sumCount  from dual
+union all select 'Éú»î·þÎñ¿Æ' officeName,'1685' officeId, 13 yhOrder,34 sumCount  from dual
+union all select '°ì¹«ÊÒ' officeName,'1161' officeId, 14 yhOrder,32 sumCount  from dual
+union all select '²ÆÎñ²¿' officeName,'1162' officeId, 15 yhOrder,30 sumCount  from dual
+union all select '×ÛºÏ²¿' officeName,'1600' officeId, 16 yhOrder,28 sumCount  from dual
+union all select '°ì¹«ÊÒ' officeName,'1163' officeId, 17 yhOrder,26 sumCount  from dual
+union all select 'ÈËÁ¦´¦' officeName,'1164' officeId, 18 yhOrder,24 sumCount  from dual
+union all select '¾­Óª´¦' officeName,'1168' officeId, 19 yhOrder,22 sumCount  from dual
+union all select 'µ³°ì' officeName,'1169' officeId, 20 yhOrder,20 sumCount  from dual
+union all select '²ÆÎñ´¦' officeName,'1400' officeId, 21 yhOrder,18 sumCount  from dual
+union all select '·þÎñÖÐÐÄ' officeName,'1420' officeId, 22 yhOrder,16 sumCount  from dual
+union all select '¹¤»á' officeName,'1725' officeId, 23 yhOrder,14 sumCount  from dual
+
+-----------------------------------
+select * from spr_webs_mgr for update ;
 
