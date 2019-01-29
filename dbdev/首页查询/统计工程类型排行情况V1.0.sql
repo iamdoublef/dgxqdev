@@ -48,17 +48,18 @@ FROM (SELECT * FROM DW_WT_ZT PIVOT (COUNT(1) FOR STATUS IN ('2' FINISH,'1' DOING
 ---------------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------测试数据-------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------------
- select 'SK' engineType, '水库' engineTypeName,58sunCount,20 finish,38 doing,1 engineOrder from dual
-union all select 'DF' engineType, '堤防' engineTypeName,56sunCount,30 finish,26 doing,2 engineOrder from dual
-union all select 'SZ' engineType, '水闸（闸坝）' engineTypeName,54sunCount,10 finish,44 doing,3 engineOrder from dual
-union all select 'SDZ' engineType, '水电站' engineTypeName,52sunCount,15 finish,37 doing,4 engineOrder from dual
-union all select 'BZ' engineType, '泵站' engineTypeName,50sunCount,44 finish,6 doing,5 engineOrder from dual
-union all select 'SHANT' engineType, '山塘（1万方库容及以上）' engineTypeName,48sunCount,33.7 finish,14.3 doing,6 engineOrder from dual
+ select 'SK' engineType, '水库' engineTypeName,58 sumCount,20 finish,38 doing,1 engineOrder from dual
+union all select 'DF' engineType, '堤防' engineTypeName,56 sumCount,30 finish,26 doing,2 engineOrder from dual
+union all select 'SZ' engineType, '水闸（闸坝）' engineTypeName,54 sumCount,10 finish,44 doing,3 engineOrder from dual
+union all select 'SDZ' engineType, '水电站' engineTypeName,52 sumCount,15 finish,37 doing,4 engineOrder from dual
+union all select 'BZ' engineType, '泵站' engineTypeName,50 sumCount,44 finish,6 doing,5 engineOrder from dual
+union all select 'SHANT' engineType, '山塘（1万方库容及以上）' engineTypeName,48 sumCount,33 finish,14 doing,6 engineOrder from dual
 ---------------------------------------------------------------------------------------------------------------------------
 
 
 SELECT DISTINCT TABLE_NAME,TABLE_ENAME FROM T_ACCOUNT_DICT  WHERE  DEL_FLAG='0' AND TYPE_ENAME1 IN ('a1','a2','a3','a4','a5');
 select * from t_question_type where p_id=2;
+select * from SPR_WEBS_MGR for update;
 
 
 

@@ -26,7 +26,11 @@ tss.ZJJLJCS,tss.ZJJLJCS_FZR,tss.ZJJLJCS_DW,tss.JCJLCS,tss.JCJLCS_FZR,tss.JCJLCS_
 tss.FXXZFZR_QM,tss.FXXZFZR_SJ,tss.FXJSZRR_QM,tss.FXJSZRR_SJ
 from t_account_info tai
 left join T_STANDBOOK_RESERVOIR  tss on tai.tz_bh = tss.id and tai.tz_table_name = 't_standbook_reservoir'
-where tss.sk_bh = '123456' and extract(year from tai.tb_sj) = '2019' and tai.tb_dwbh = 'DGXQSLGCGLC7'
+where  tai.id = '7b7a3ce448b6488caaab54861fb96d1f'
+
+
+
+--and extract(year from tai.tb_sj) = '2019' and tai.tb_dwbh = 'DGXQSLGCGLC7'
 
 
 --------------------------------------------------------------------------------------------------------
